@@ -8,9 +8,10 @@ type SymbolCardProps = {
   id: string;
   onClick: (symbolId: string) => void;
   price: number;
+  activeSymbol: string | null;
 };
 
-const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
+const SymbolCard = ({ id, onClick, price, activeSymbol }: SymbolCardProps) => {
   const { trend, companyName, marketCap, industry } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
@@ -19,8 +20,13 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
     onClick(id);
   };
 
+  const defineActiveSymbolStyles = () => {
+    if (!activeSymbol) return;
+    return activeSymbol === id ? 'active' : 'notActive';
+  };
+
   return (
-    <div onClick={handleOnClick} className="symbolCard">
+    <div onClick={handleOnClick} className={`symbolCard ${defineActiveSymbolStyles()}`}>
       <CardHeader id={id} trend={trend} />
       <CardPrice price={price} />
       <SymbolCardInfo companyName={companyName} marketCap={marketCap} industry={industry} />
