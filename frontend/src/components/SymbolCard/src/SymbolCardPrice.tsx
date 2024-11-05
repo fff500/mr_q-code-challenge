@@ -1,3 +1,4 @@
+import { convertNumberToCurrencyNotation } from '@/helpers';
 import './SymbolCardPrice.css';
 
 type SymbolCardPriceProps = {
@@ -8,7 +9,7 @@ const SymbolCardPrice = ({ price }: SymbolCardPriceProps) => {
   return (
     <div className="symbolCard__price">
       <div>Price:</div>
-      <div>{price || '--'} </div>
+      <div>{price ? convertNumberToCurrencyNotation(price) : '--'}</div>
     </div>
   );
 };
