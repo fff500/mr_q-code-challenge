@@ -7,9 +7,11 @@ type SymbolCardPriceProps = {
 
 const SymbolCardPrice = ({ price }: SymbolCardPriceProps) => {
   return (
-    <div className="symbolCard__price">
-      <div>Price:</div>
-      <div>{price ? convertNumberToCurrencyNotation(price) : '--'}</div>
+    <div className="symbolCardPrice">
+      <div className="symbolCardPrice__label">Price:</div>
+      <div className="symbolCardPrice__price">
+        {price ? convertNumberToCurrencyNotation(price) : '--'}
+      </div>
     </div>
   );
 };

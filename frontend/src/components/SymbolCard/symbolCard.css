@@ -1,7 +1,8 @@
 .symbolCard {
-  border: 2px solid black; /* just for visibility, feel free to remove it */
-  margin: 10px; /* just for visibility, feel free to remove it */
-  padding: 10px; /* just for visibility, feel free to remove it */
+  line-height: 1;
+  border-radius: 0 0 4px 4px;
+  background-color: var(--colorWhite);
+  cursor: pointer;
 }
 
 .symbolCard__shake {
@@ -9,6 +10,7 @@
 }
 
 @keyframes shake {
+
   10%,
   90% {
     transform: translateX(-2px);

@@ -22,8 +22,14 @@ const trendIcons = {
 const SymbolCardHeader = ({ id, trend }: SymbolCardHeaderProps) => {
   return (
     <header className="symbolCard__header">
-      <span>{id}</span>
-      {trend && <img src={trendIcons[trend].src} alt={trendIcons[trend].alt} />}
+      <span className="symbolCard__symbol">{id}</span>
+      {trend && (
+        <img
+          src={trendIcons[trend].src}
+          alt={trendIcons[trend].alt}
+          className="symbolCard__trendImage"
+        />
+      )}
     </header>
   );
 };

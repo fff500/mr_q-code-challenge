@@ -1,4 +1,21 @@
 .symbolCard__header {
+  position: relative;
+  padding: 4px 8px;
+  border-radius: 4px 4px 0 0;
   color: var(--colorWhite);
   background-color: var(--colorDark);
+}
+
+.symbolCard__symbol {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.symbolCard__trendImage {
+  position: absolute;
+  top: -16px;
+  right: -18px;
+  display: block;
+  width: 48px;
+  height: 38px;
 }

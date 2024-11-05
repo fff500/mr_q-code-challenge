@@ -33,7 +33,7 @@ const SymbolCardInfo = ({ companyName, marketCap, industry }: SymbolCardInfoProp
       {infoItems.map(({ icon, label }) => {
         return (
           <li role="listitem" key={label}>
-            <ListItem Icon={React.createElement(icon)} label={label} />
+            <ListItem Icon={React.createElement(icon)} label={label} spacing="space-between" />
           </li>
         );
       })}
