@@ -4,6 +4,7 @@ import CardHeader from './src/SymbolCardHeader';
 import CardPrice from './src/SymbolCardPrice';
 import SymbolCardInfo from './src/SymbolCardInfo';
 import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
+import usePrevious from '@/hooks/usePrevious';
 
 type SymbolCardProps = {
   id: string;
@@ -17,6 +18,7 @@ const SymbolCard = ({ id, onClick, price, activeSymbol }: SymbolCardProps) => {
     (state) => state.stocks.entities[id]
   );
   const showCardInfo = useAppSelector(selectShowCardInfo);
+  const previousPrice = usePrevious(price);
 
   const handleOnClick = () => {
     onClick(id);
@@ -27,8 +29,14 @@ const SymbolCard = ({ id, onClick, price, activeSymbol }: SymbolCardProps) => {
     return activeSymbol === id ? 'active' : 'notActive';
   };
 
+  const defineShakeAnimationStyles = () =>
+    previousPrice && price - previousPrice > previousPrice * 0.25 ? 'symbolCard__shake' : '';
+
   return (
-    <div onClick={handleOnClick} className={`symbolCard ${defineActiveSymbolStyles()}`}>
+    <div
+      onClick={handleOnClick}
+      className={`symbolCard ${defineActiveSymbolStyles()} ${defineShakeAnimationStyles()}`}
+    >
       <CardHeader id={id} trend={trend} />
       <CardPrice price={price} />
       {showCardInfo && (
