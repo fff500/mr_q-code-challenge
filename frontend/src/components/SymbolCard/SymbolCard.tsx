@@ -32,10 +32,18 @@ const SymbolCard = ({ id, onClick, price, activeSymbol }: SymbolCardProps) => {
   const defineShakeAnimationStyles = () =>
     previousPrice && price - previousPrice > previousPrice * 0.25 ? 'symbolCard__shake' : '';
 
+  const definePriceChangeStyles = () => {
+    if (!previousPrice || (previousPrice && !(price - previousPrice))) return '';
+
+    return previousPrice && price > previousPrice
+      ? 'symbolCard__up-change'
+      : 'symbolCard__down-change';
+  };
+
   return (
     <div
       onClick={handleOnClick}
-      className={`symbolCard ${defineActiveSymbolStyles()} ${defineShakeAnimationStyles()}`}
+      className={`symbolCard ${defineActiveSymbolStyles()} ${defineShakeAnimationStyles()} ${definePriceChangeStyles()}`}
     >
       <CardHeader id={id} trend={trend} />
       <CardPrice price={price} />
