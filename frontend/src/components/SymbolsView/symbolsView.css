@@ -1,22 +1,29 @@
+.symbolsView,
 .symbolsView__content {
-  display: flex;
-  padding-top: 16px;
+  display: grid;
+  overflow: hidden;
+}
+
+.symbolsView__content {
+  gap: 16px;
+  grid-template-columns: 1fr fit-content(400px);
+  margin-top: 16px;
 }
 
 .symbolsView__chart {
   order: 1;
-  width: 400px;
 }
 
 .symbolsView__cards {
-  order: 0;
-  flex-grow: 1;
+  border-radius: 4px;
+  background-color: #d4d4d4;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 @media screen and (max-width: 1023px) {
   .symbolsView__content {
-    flex-wrap: wrap;
-    justify-content: center;
+    grid-template-columns: 1fr;
   }
 
   .symbolsView__chart {
@@ -25,7 +32,5 @@
 
   .symbolsView__cards {
     order: 1;
-    flex-basis: 100%;
-    flex-grow: initial;
   }
 }
