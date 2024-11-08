@@ -5,25 +5,27 @@
   cursor: pointer;
 }
 
-.symbolCard.active {
-  box-shadow: 0px 0px 18px #000000;
+.symbolCard--scaledUp {
   scale: 1.04;
 }
 
-.symbolCard.notActive {
-  box-shadow: none;
+.symbolCard--scaledDown {
   scale: 0.96;
 }
 
-.symbolCard__up-change {
+.symbolCard--blackShadow {
+  box-shadow: 0px 0px 18px #000000;
+}
+
+.symbolCard--greenShadow {
   box-shadow: 0px 0px 18px #44cf0c;
 }
 
-.symbolCard__down-change {
+.symbolCard--redShadow {
   box-shadow: 0px 0px 18px #e70808;
 }
 
-.symbolCard__shake {
+.symbolCard--shake {
   animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 

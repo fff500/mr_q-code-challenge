@@ -5,6 +5,10 @@ import CardPrice from './src/SymbolCardPrice';
 import SymbolCardInfo from './src/SymbolCardInfo';
 import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
 import usePrevious from '@/hooks/usePrevious';
+import { useEffect, useRef } from 'react';
+import { useAddGlow } from './hooks/useAddGlow';
+import { useAddShake } from './hooks/useAddShake';
+import { VisualsClasses } from './hooks/types';
 
 type SymbolCardProps = {
   id: string;
@@ -14,37 +18,44 @@ type SymbolCardProps = {
 };
 
 const SymbolCard = ({ id, onClick, price, activeSymbol }: SymbolCardProps) => {
+  const previousPrice = usePrevious(price);
   const { trend, companyName, marketCap, industry } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
   const showCardInfo = useAppSelector(selectShowCardInfo);
-  const previousPrice = usePrevious(price);
+  const { glow, addGlow, setGlow } = useAddGlow();
+  const { shake, addShake, setShake } = useAddShake();
 
-  const handleOnClick = () => {
+  useEffect(() => {
+    if (previousPrice) addGlow(previousPrice, price);
+  }, [price]);
+
+  useEffect(() => {
+    if (previousPrice) addShake(previousPrice, price);
+  }, [price]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShake('');
+      setGlow('');
+    }, 300);
+    return () => {
+      clearInterval(timeout);
+    };
+  }, [price]);
+
+  const handleOnClick = (): void => {
     onClick(id);
   };
 
-  const defineActiveSymbolStyles = () => {
-    if (!activeSymbol) return;
-    return activeSymbol === id ? 'active' : 'notActive';
-  };
-
-  const defineShakeAnimationStyles = () =>
-    previousPrice && price - previousPrice > previousPrice * 0.25 ? 'symbolCard__shake' : '';
-
-  const definePriceChangeStyles = () => {
-    if (!previousPrice || (previousPrice && !(price - previousPrice))) return '';
-
-    return previousPrice && price > previousPrice
-      ? 'symbolCard__up-change'
-      : 'symbolCard__down-change';
+  const defineIsActiveClass = (): string | undefined => {
+    if (activeSymbol) {
+      return activeSymbol === id ? VisualsClasses.Active : VisualsClasses.NotActive;
+    }
   };
 
   return (
-    <div
-      onClick={handleOnClick}
-      className={`symbolCard ${defineActiveSymbolStyles()} ${defineShakeAnimationStyles()} ${definePriceChangeStyles()}`}
-    >
+    <div onClick={handleOnClick} className={`symbolCard ${defineIsActiveClass()} ${glow} ${shake}`}>
       <CardHeader id={id} trend={trend} />
       <CardPrice price={price} />
       {showCardInfo && (
