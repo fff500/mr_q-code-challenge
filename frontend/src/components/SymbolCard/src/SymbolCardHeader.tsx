@@ -2,6 +2,7 @@ import './SymbolCardHeader.css';
 import arrowDown from '@/assets/down.png';
 import arrowUp from '@/assets/up.png';
 import { PriceTrend } from '@/store/stocksSlice';
+import { memo } from 'react';
 
 type SymbolCardHeaderProps = {
   id: string;
@@ -19,19 +20,17 @@ const trendIcons = {
   }
 };
 
-const SymbolCardHeader = ({ id, trend }: SymbolCardHeaderProps) => {
-  return (
-    <header className="symbolCard__header">
-      <span className="symbolCard__symbol">{id}</span>
-      {trend && (
-        <img
-          src={trendIcons[trend].src}
-          alt={trendIcons[trend].alt}
-          className="symbolCard__trendImage"
-        />
-      )}
-    </header>
-  );
-};
+const SymbolCardHeader = ({ id, trend }: SymbolCardHeaderProps) => (
+  <header className="symbolCard__header">
+    <span className="symbolCard__symbol">{id}</span>
+    {trend && (
+      <img
+        src={trendIcons[trend].src}
+        alt={trendIcons[trend].alt}
+        className="symbolCard__trendImage"
+      />
+    )}
+  </header>
+);
 
-export default SymbolCardHeader;
+export default memo(SymbolCardHeader);

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { VisualsClasses } from './types';
 
 export const useAddGlow = () => {

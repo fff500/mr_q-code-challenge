@@ -3,9 +3,10 @@ import './highlightedSymbols.css';
 
 import PerformanceCard from '@/components/PerformanceCard';
 import Row from '@/components/Row';
+import { PriceTrend } from '@/store/stocksSlice';
 
 type HighlightedSymbol = {
-  trend?: 'UP' | 'DOWN' | null;
+  trend?: PriceTrend | null;
   symbolId: string;
   volume: number;
   change: number;
@@ -13,37 +14,37 @@ type HighlightedSymbol = {
 
 const data: HighlightedSymbol[] = [
   {
-    trend: 'UP',
+    trend: PriceTrend.Up,
     symbolId: 'NVDA',
     volume: 323_463_212,
     change: 1.127
   },
   {
-    trend: 'DOWN',
+    trend: PriceTrend.Down,
     symbolId: 'AAPL',
     volume: 221_673_743,
     change: 0.6534
   },
   {
-    trend: 'DOWN',
+    trend: PriceTrend.Down,
     symbolId: 'TSLA',
     volume: 151_865_316,
     change: 0.99
   },
   {
-    trend: 'DOWN',
+    trend: PriceTrend.Down,
     symbolId: 'AMZN',
     volume: 98_527_158,
     change: 0.9269
   },
   {
-    trend: 'UP',
+    trend: PriceTrend.Up,
     symbolId: 'GOOGL',
     volume: 83_316_914,
     change: 1.1134
   },
   {
-    trend: 'DOWN',
+    trend: PriceTrend.Down,
     symbolId: 'MSFT',
     volume: 73_735_142,
     change: 0.9932
@@ -58,7 +59,6 @@ const HighlightedSymbols = () => {
           <PerformanceCard
             change={symbol.change}
             key={index}
-            trend={symbol.trend}
             title={symbol.symbolId}
             volume={symbol.volume}
           />

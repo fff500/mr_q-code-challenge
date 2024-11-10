@@ -4,7 +4,7 @@ import { ReactComponent as MarketCapIcon } from '@/assets/market_cap.svg';
 import { ReactComponent as IndustryIcon } from '@/assets/industry.svg';
 import './SymbolCardInfo.css';
 import { convertNumberToCurrencyNotation } from '@/helpers';
-import React from 'react';
+import React, { memo } from 'react';
 
 type SymbolCardInfoProps = {
   companyName: string;
@@ -12,28 +12,37 @@ type SymbolCardInfoProps = {
   industry: string;
 };
 
+type InfoItem = {
+  id: string,
+  icon: React.ReactNode,
+  label: string
+}
+
 const SymbolCardInfo = ({ companyName, marketCap, industry }: SymbolCardInfoProps) => {
-  const infoItems = [
+  const infoItems: InfoItem[] = [
     {
-      icon: CompanyIcon,
+      id: 'companyName',
+      icon: <CompanyIcon />,
       label: companyName
     },
     {
-      icon: IndustryIcon,
+      id: 'industry',
+      icon: <IndustryIcon />,
       label: industry
     },
     {
-      icon: MarketCapIcon,
+      id: 'marketCap',
+      icon: <MarketCapIcon />,
       label: convertNumberToCurrencyNotation(marketCap)
     }
   ];
 
   return (
     <ul role="list" className="symbolCard__list">
-      {infoItems.map(({ icon, label }) => {
+      {infoItems.map(({ id, icon, label }) => {
         return (
-          <li role="listitem" key={label}>
-            <ListItem Icon={React.createElement(icon)} label={label} spacing="space-between" />
+          <li role="listitem" key={id}>
+            <ListItem Icon={icon} label={label} spacing="space-between" />
           </li>
         );
       })}
@@ -41,4 +50,4 @@ const SymbolCardInfo = ({ companyName, marketCap, industry }: SymbolCardInfoProp
   );
 };
 
-export default SymbolCardInfo;
+export default memo(SymbolCardInfo);

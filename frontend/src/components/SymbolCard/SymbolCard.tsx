@@ -4,11 +4,9 @@ import CardHeader from './src/SymbolCardHeader';
 import CardPrice from './src/SymbolCardPrice';
 import SymbolCardInfo from './src/SymbolCardInfo';
 import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
-import usePrevious from '@/hooks/usePrevious';
-import { useEffect, useRef } from 'react';
-import { useAddGlow } from './hooks/useAddGlow';
-import { useAddShake } from './hooks/useAddShake';
-import { VisualsClasses } from './hooks/types';
+import { usePrevious } from '@/hooks/usePrevious';
+import { memo, useEffect } from 'react';
+import { useAddGlow, useAddShake, VisualsClasses,  } from './hooks';
 
 type SymbolCardProps = {
   id: string;
@@ -65,4 +63,4 @@ const SymbolCard = ({ id, onClick, price, activeSymbol }: SymbolCardProps) => {
   );
 };
 
-export default SymbolCard;
+export default memo(SymbolCard);
