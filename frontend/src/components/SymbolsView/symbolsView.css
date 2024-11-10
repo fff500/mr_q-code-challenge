@@ -1,0 +1,36 @@
+.symbolsView,
+.symbolsView__content {
+  display: grid;
+  overflow: hidden;
+}
+
+.symbolsView__content {
+  gap: 16px;
+  grid-template-columns: 1fr fit-content(400px);
+  margin-top: 16px;
+}
+
+.symbolsView__chart {
+  order: 1;
+}
+
+.symbolsView__cards {
+  border-radius: 4px;
+  background-color: #d4d4d4;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+@media screen and (max-width: 1023px) {
+  .symbolsView__content {
+    grid-template-columns: 1fr;
+  }
+
+  .symbolsView__chart {
+    order: 0;
+  }
+
+  .symbolsView__cards {
+    order: 1;
+  }
+}

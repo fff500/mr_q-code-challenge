@@ -1,25 +1,37 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import SymbolCard from '../SymbolCard';
 import { fetchAllStocks, selectors } from '@/store/stocksSlice';
-type SymbolsGridProps = {
-  onSymbolClick: (symbolId: string) => void;
-};
+import './symbolsGrid.css';
+import { selectActiveSymbol, setActiveSymbol } from '@/store/dashboardOptionsSlice';
 
-const SymbolsGrid = ({ onSymbolClick }: SymbolsGridProps) => {
+const SymbolsGrid = () => {
   const stockSymbols = useAppSelector(selectors.selectStockIds);
   const prices = useAppSelector((state) => state.prices);
+  const activeSymbol = useAppSelector(selectActiveSymbol);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(fetchAllStocks());
   }, [dispatch]);
 
+  const handleSymbolClick = useCallback((symbolId: string) => {
+    dispatch(setActiveSymbol(activeSymbol === symbolId ? null : symbolId));
+  }, [activeSymbol]);
+
   return (
-    <div>
-      {stockSymbols.map((id, i) => (
-        <SymbolCard price={prices[id]} onClick={onSymbolClick} key={i} id={id} />
+    <ul role="list" className="symbolsGrid__list">
+      {stockSymbols.map((symbol) => (
+        <li role="listitem" key={symbol}>
+          <SymbolCard
+            price={prices[symbol]}
+            onClick={handleSymbolClick}
+            id={symbol}
+            activeSymbol={activeSymbol}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

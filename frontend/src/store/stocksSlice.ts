@@ -1,13 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@/store/index';
 
+export enum PriceTrend {
+  Up = 'UP',
+  Down = 'DOWN'
+}
+
 type Stock = {
   symbol: string;
   companyName: string;
   industry: string;
   marketCap: number;
   exchange: 'NASDAQ' | 'NYSE';
-  trend: 'UP' | 'DOWN' | null;
+  trend: PriceTrend | null;
 };
 
 type StockEntry = {
