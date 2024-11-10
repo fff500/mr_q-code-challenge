@@ -3,6 +3,8 @@ import PriceChart from '@/components/PriceChart';
 import DesktopInfo from './src/DesktopInfo';
 import './symbolsView.css';
 
+
+const SymbolsView = () => {
   return (
     <div className="symbolsView">
       <DesktopInfo />
